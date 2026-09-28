@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>Números en aymara · Aymar Yatiqaña</title>
+<meta name="theme-color" content="#b45309" />
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="../../assets/estilos.css" />
+</head>
+<body class="fondo-app text-stone-800 min-h-screen safe-bottom">
+
+  <div class="md:flex md:min-h-screen">
+
+    <!-- Sidebar (solo escritorio) -->
+    <aside class="hidden md:flex md:flex-col md:w-64 md:shrink-0 md:h-screen md:sticky md:top-0 bg-white border-r border-stone-200 px-5 py-6">
+      <a href="../../index.html" class="flex items-center gap-2 font-extrabold text-lg text-amber-800 mb-8">
+        <span class="text-2xl" aria-hidden="true"></span> Aprender AYMARA
+      </a>
+      <nav class="flex flex-col gap-1 text-sm font-semibold">
+        <a href="../../index.html" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-stone-600 hover:bg-stone-100 transition">
+          <span aria-hidden="true">🏠</span> Inicio
+        </a>
+        <a href="index.html" class="flex items-center gap-3 px-3 py-2.5 rounded-xl bg-amber-100 text-amber-800">
+          <span aria-hidden="true">🔢</span> Números
+        </a>
+        <span class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-stone-300 cursor-default">
+          <span aria-hidden="true">🔒</span> Más lecciones
+        </span>
+      </nav>
+      <div class="mt-auto pt-6 border-t border-stone-100">
+        <button data-reset-progreso
+          class="w-full text-left flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-semibold text-stone-400 hover:text-red-600 hover:bg-red-50 transition">
+          <span aria-hidden="true">↺</span> Reiniciar progreso
+        </button>
+      </div>
+    </aside>
+
+    <div class="flex-1 min-w-0 flex flex-col">
+
+      <!-- Barra superior (solo celular) -->
+      <header class="md:hidden sticky top-0 z-20 bg-amber-700 text-white shadow-md">
+        <div class="px-4 flex items-center justify-between h-14">
+          <a href="../../index.html" class="font-bold text-lg flex items-center gap-2">
+            <span aria-hidden="true">🏔️</span> Aymar Yatiqaña
+          </a>
+          <button id="nav-toggle" aria-label="Abrir menú" aria-expanded="false"
+            class="p-2 rounded-lg hover:bg-amber-600 active:scale-95 transition">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </button>
+        </div>
+        <div id="nav-menu" class="hidden px-4 pb-3 flex flex-col gap-1">
+          <a href="../../index.html" class="px-3 py-2 rounded-lg text-sm font-semibold hover:bg-amber-600 transition">Inicio</a>
+          <a href="index.html" class="px-3 py-2 rounded-lg text-sm font-semibold bg-amber-800">Números</a>
+          <button data-reset-progreso class="text-left px-3 py-2 rounded-lg text-sm font-semibold bg-amber-800/60 mt-1">
+            ↺ Reiniciar progreso
+          </button>
+        </div>
+      </header>
+
+      <main class="flex-1 w-full max-w-3xl mx-auto px-4 sm:px-6 lg:px-10 py-6 md:py-10">
+
+        <header class="text-center sm:text-left mb-6">
+          <div class="flex items-center justify-between gap-3">
+            <div>
+              <h1 class="text-xl sm:text-2xl font-extrabold text-stone-900">Clase de números</h1>
+              <p id="titulo-nivel" class="text-amber-700 text-sm font-semibold mt-1"></p>
+            </div>
+            <button data-reset-progreso
+              class="hidden sm:inline-flex items-center gap-1 text-xs font-semibold text-stone-400 hover:text-red-600 transition px-3 py-2 rounded-lg hover:bg-red-50">
+              <span aria-hidden="true">↺</span> Reiniciar
+            </button>
+          </div>
+        </header>
+
+        <!-- Video: canción en aymara para aprender los números -->
+        <details class="group bg-white rounded-2xl panel-elevado border border-stone-100 mb-6 overflow-hidden">
+          <summary class="list-none cursor-pointer select-none flex items-center justify-between gap-3 px-5 py-4">
+            <span class="flex items-center gap-2 font-bold text-stone-800 text-sm sm:text-base">
+              <span aria-hidden="true">🎵</span> Video: canción para aprender los números
+            </span>
+            <span class="text-xs font-semibold text-amber-700 group-open:hidden">Ver video ▾</span>
+            <span class="text-xs font-semibold text-amber-700 hidden group-open:inline">Ocultar ▴</span>
+          </summary>
+          <div class="px-5 pb-5">
+            <video controls playsinline preload="metadata" class="w-full rounded-xl bg-black aspect-video">
+              <source src="../../assets/video/aymara.mp4" type="video/mp4" />
+              Tu navegador no puede reproducir este video.
+              <a href="../../assets/video/aymara.mp4" class="text-amber-700 underline">Descárgalo aquí</a>.
+            </video>
+          </div>
+        </details>
+
+        <!-- Selector de nivel: nodos con anillo de progreso -->
+        <div id="selector-niveles" class="flex items-center justify-center gap-5 sm:gap-8 mb-6"></div>
+
+        <!-- Panel principal -->
+        <div class="bg-white rounded-3xl panel-elevado border border-stone-100 p-5 sm:p-8">
+
+          <!-- Progreso del nivel actual -->
+          <div class="space-y-3 mb-6">
+            <div>
+              <div class="flex justify-between text-xs text-stone-500 mb-1">
+                <span>Tarjetas vistas</span>
+                <span id="progreso-tarjetas-texto"></span>
+              </div>
+              <div class="h-2 bg-stone-100 rounded-full overflow-hidden">
+                <div id="progreso-tarjetas-barra" class="h-full bg-amber-500 transition-all duration-300"></div>
+              </div>
+            </div>
+            <div>
+              <div class="flex justify-between text-xs text-stone-500 mb-1">
+                <span>Aciertos en el quiz</span>
+                <span id="progreso-quiz-texto"></span>
+              </div>
+              <div class="h-2 bg-stone-100 rounded-full overflow-hidden">
+                <div id="progreso-quiz-barra" class="h-full bg-green-500 transition-all duration-300"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Segmentado Tarjetas / Quiz -->
+          <div class="flex bg-stone-100 rounded-full p-1 max-w-xs mx-auto mb-6">
+            <button id="tab-tarjetas" class="flex-1 py-2 rounded-full text-sm font-semibold transition">🗂️ Tarjetas</button>
+            <button id="tab-quiz" class="flex-1 py-2 rounded-full text-sm font-semibold transition">📝 Quiz</button>
+          </div>
+
+          <!-- Contenido dinámico -->
+          <div id="contenido" class="py-2"></div>
+
+        </div>
+
+      </main>
+
+      <footer class="text-center text-[11px] text-stone-400 py-6 border-t border-stone-200 px-4">
+        Tu progreso se guarda solo en este navegador.
+      </footer>
+
+    </div>
+  </div>
+
+  <script src="../../assets/progreso.js"></script>
+  <script src="../../assets/nav.js"></script>
+  <script src="datos.js"></script>
+  <script src="app.js"></script>
+  <script>
+    document.querySelectorAll("[data-reset-progreso]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        reiniciarProgresoConConfirmacion(() => location.reload());
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,92 @@
+/* Ajustes que Tailwind (vía CDN) no cubre: el efecto de "voltear" la tarjeta. */
+
+.flip-card {
+  perspective: 1200px;
+}
+
+.flip-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.5s;
+  transform-style: preserve-3d;
+}
+
+.flip-card.flipped .flip-card-inner {
+  transform: rotateY(180deg);
+}
+
+.flip-card-front,
+.flip-card-back {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.flip-card-back {
+  transform: rotateY(180deg);
+}
+
+/* Pequeña animación para la retroalimentación del quiz */
+@keyframes pop {
+  0% { transform: scale(0.95); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+.pop-in {
+  animation: pop 0.2s ease-out;
+}
+
+/* Transición suave al cambiar de tarjeta, nivel o vista (tarjetas/quiz) */
+@keyframes fadeUp {
+  0% { opacity: 0; transform: translateY(6px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+.fade-in {
+  animation: fadeUp 0.25s ease-out;
+}
+
+/* Evita que el contenido quede pegado a los bordes en celulares con "notch" */
+.safe-bottom {
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+/* Que nada desborde horizontalmente en pantallas angostas.
+   Importante: NO usar "overflow-x: hidden" aquí. En html/body eso obliga al navegador a
+   fijar también "overflow-y: auto" (regla del spec de CSS), y ese overflow-y convierte a
+   body en su propio contenedor de scroll separado del viewport — eso es lo que rompía la
+   barra lateral "sticky" en escritorio (se movía o saltaba al hacer scroll). En vez de
+   recortar el desborde aquí, evitamos que aparezca desde el layout mismo (min-w-0 en los
+   contenedores flex, y overflow-x-auto solo en las filas que realmente pueden crecer). */
+html, body {
+  max-width: 100%;
+}
+
+/* Fondo con textura sutil para que el sitio se sienta "con cuerpo", no una página plana */
+.fondo-app {
+  background-color: #fafaf9;
+  background-image:
+    radial-gradient(circle at 1px 1px, rgba(180, 83, 9, 0.08) 1px, transparent 0);
+  background-size: 22px 22px;
+}
+
+/* Anillo de progreso tipo Duolingo: el porcentaje se pinta con --pct (0 a 100) y --color */
+.anillo-progreso {
+  --pct: 0;
+  --color: #b45309;
+  background: conic-gradient(var(--color) calc(var(--pct) * 1%), #e7e5e4 0);
+}
+
+/* Nodo de una lección "bloqueada" en el camino de aprendizaje */
+.nodo-bloqueado {
+  filter: grayscale(0.4);
+}
+
+/* Contenedor con más "profundidad" para que el panel principal no se vea plano */
+.panel-elevado {
+  box-shadow: 0 1px 2px rgba(28, 25, 23, 0.04), 0 8px 24px -8px rgba(28, 25, 23, 0.12);
+}
